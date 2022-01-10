@@ -8,11 +8,11 @@ ifeq ($(strip $(PS3DEV)),)
   endif
 endif
 
-#ifneq (,$(findstring MINGW,$(UNAME)))
+ifneq (,$(findstring MINGW,$(UNAME)))
 	PLATFORM	:= win32
 	COMPILER	:= --compiler=mingw32
 	OS			:= win32
-#endif
+endif
 
 all: pkgcrypt.so
 
