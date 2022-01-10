@@ -14,6 +14,7 @@ clean:
 
 install: all
 	@cp $(TARGET) $(PS3DEV)/ppu/bin/
+	@cp $(TARGET) $(PS3DEV)/bin/
 
 $(TARGET): $(CFILES)
 	$(CC) $(CFLAGS) $< -o $@
