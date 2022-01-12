@@ -59,7 +59,7 @@ BUILDDIR		?=	$(CURDIR)/build
 	$(VERB) mkdir -p $(BUILDDIR)
 	$(VERB) $(STRIP) $< -o $(BUILDDIR)/$(notdir $<)
 	$(VERB) $(SPRX) $(BUILDDIR)/$(notdir $<)
-	$(VERB) $(SELF) --data-path=$(SCE_DATA) $(SCETOOL_FLAGS) --encrypt $(BUILDDIR)/$(notdir $<) $@
+	$(VERB) $(SELF) --data-path=$(SCE_DATA) $(SCETOOL_FLAGS) --encrypt $(BUILDDIR)/$(notdir $<) $@ >> /dev/null
 	$(VERB) #$(FSELF) $(BUILDDIR)/$(notdir $<) $(basename $@).fake.self
 
 %.pkg: %.self
