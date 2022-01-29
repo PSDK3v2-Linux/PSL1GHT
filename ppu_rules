@@ -40,9 +40,6 @@ SCETOOL_FLAGS		?=	--self-app-version=0001000000000000  --sce-type=SELF --compres
 					--self-auth-id=1010000001000003 --self-vendor-id=01000002 --self-fw-version=0003004000000000
 
 
-# NPDRM pkg tool
-PACKAGE_FINALIZE	:=	package_finalize
-
 # Package settings - allow for user override
 TITLE			?=	Untitled PSL1GHT homebrew
 APPID			?=	UNTITLED1
@@ -66,12 +63,10 @@ BUILDDIR		?=	$(CURDIR)/build
 	$(VERB) echo building pkg ... $(notdir $@)
 	$(VERB) mkdir -p $(BUILDDIR)/pkg/USRDIR
 	$(VERB) cp $(ICON0) $(BUILDDIR)/pkg/ICON0.PNG
-	$(VERB) $(SELF_NPDRM) --data-path=$(SCE_DATA) $(SCETOOL_FLAGS) --np-content-id=$(CONTENTID) --encrypt $(BUILDDIR)/$(basename $(notdir $<)).elf $(BUILDDIR)/pkg/USRDIR/EBOOT.BIN #$(CONTENTID) >> /dev/null
+	$(VERB) $(SELF_NPDRM) --data-path=$(SCE_DATA) $(SCETOOL_FLAGS) --np-content-id=$(CONTENTID) --encrypt $(BUILDDIR)/$(basename $(notdir $<)).elf $(BUILDDIR)/pkg/USRDIR/EBOOT.BIN >> /dev/null
 	$(VERB) $(SFO) --title "$(TITLE)" --appid "$(APPID)" -f $(SFOXML) $(BUILDDIR)/pkg/PARAM.SFO
 	$(VERB) if [ -n "$(PKGFILES)" -a -d "$(PKGFILES)" ]; then cp -rf $(PKGFILES)/* $(BUILDDIR)/pkg/; fi
 	$(VERB) $(PKG) --contentid $(CONTENTID) $(BUILDDIR)/pkg/ $@ >> /dev/null
-	$(VERB) #cp $@ $(basename $@).gnpdrm.pkg
-	$(VERB) #$(PACKAGE_FINALIZE) $(basename $@).gnpdrm.pkg
 
 #---------------------------------------------------------------------------------
 %.vpo: %.vcg
